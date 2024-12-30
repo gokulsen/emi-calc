@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMI Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input, button {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+        }
+        .result {
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>EMI Calculator</h1>
+        <label for="principal">Principal Amount (P)</label>
+        <input type="number" id="principal" placeholder="Enter Principal Amount" value="1100000">
+
+        <label for="rate">Annual Interest Rate (R) %</label>
+        <input type="number" step="0.01" id="rate" placeholder="Enter Interest Rate" value="8.85">
+
+        <label for="tenure">Tenure (N) Months</label>
+        <input type="number" id="tenure" placeholder="Enter Tenure in Months" value="84">
+
+        <button onclick="calculateEMI()">Calculate EMI</button>
+
+        <div class="result" id="emiResult">EMI Amount: </div>
+    </div>
+
+    <script>
+        function calculateEMI() {
+            const P = parseFloat(document.getElementById('principal').value);
+            const R = parseFloat(document.getElementById('rate').value) / 100 / 12;
+            const N = parseInt(document.getElementById('tenure').value);
+
+            const numerator = P * R * Math.pow(1 + R, N);
+            const denominator = Math.pow(1 + R, N) - 1;
+            const EMI = numerator / denominator;
+
+            document.getElementById('emiResult').textContent = `EMI Amount: ₹${EMI.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
